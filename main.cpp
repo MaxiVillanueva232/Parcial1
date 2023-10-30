@@ -68,14 +68,15 @@ void MostrarArchivosJugadores();
 int main()
 {
 
-    //CargarArchivosJugadores(30);
-    //CargarArchivosDeporte(30);
-    MostrarArchivosJugadores();
+    //CargarArchivosJugadores(10);
+    //CargarArchivosDeporte(10);
+    //MostrarArchivosJugadores();
     //MostrarArchivosDeporte();
 
 
     //////////////////////////////
     int tamReg;
+    int contador=0;
     ArchivoJugadores AJ("jugadores.dat");
     tamReg = AJ.contarRegistros(); //<-----------------------
     Jugador J;
@@ -98,12 +99,19 @@ int main()
                      AD5.setFechaInscripcion(J.getFechaInscirpcion());
                      if (AD5.grabarRegistro() == true)
                      {
+                        contador++;
                          cout << "Se Guardo Correctamente" << endl;
                      }
                      
-                 }/// ///else{ if(AD5.grabarRegistro()){cout << "Se Guardo Correctamente,un arcchivo vacio " << endl;}}
+                 }
              }
          }
+    }
+
+
+    if(contador==0){
+        cout << "Se Guardo Correctamente,un arcchivo vacio " << endl;
+        VaciarArchivoDeporte5();
     }
 
     MostrarArchivoCompleto();
