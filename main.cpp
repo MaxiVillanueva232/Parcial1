@@ -3,8 +3,7 @@
 
 using namespace std;
 
-#include "parcial1l.h"
-
+#include"parcial1l.h"
 class ArchivoDeporte5
 {
 
