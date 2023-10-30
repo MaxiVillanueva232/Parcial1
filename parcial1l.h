@@ -52,15 +52,71 @@ public:
    int getClaustro(){return claustro;}
    int getIdDeporte(){return idDeporte;}
    int getIdEquipo(){return idEquipo;}
+   int getTelefono(){return telefono;}
+   float getMatricula(){return matricula;}
    const char *getNombre(){return nombre;}
    const char *getApellido(){return apellido;}
+   const char *getEmail(){return email;}
    bool getEstado(){return estado;}
    Fecha getFechaInscirpcion(){return inscripcion;}
 
    void setEstado(bool e){estado=e;}
 
    void Mostrar(){
+        // cout<<"DNI: "<<getDNI()<<endl;
+        // cout<<"claustro: "<<getClaustro()<<endl;
+        // cout<<"idDeporte: "<<getIdDeporte()<<endl;
+        // cout<<"idEquipo: "<<getIdEquipo()<<endl;
+        // cout<<"nombre: "<<getNombre()<<endl;
+        // cout<<"apellido: "<<getApellido()<<endl;
+        // cout<<"Estado: "<<getEstado()<<endl<<endl;
+    
+        cout<<"DNI: "<<getDNI()<<endl;
+        cout<<"nombre: "<<getNombre()<<endl;
+        cout<<"apellido: "<<getApellido()<<endl;
+        cout<<"Email: "<<getApellido()<<endl;
+        cout<<"Telefono: "<<getTelefono()<<endl;
+        cout<<"claustro: "<<getClaustro()<<endl;
+        cout<<"idDeporte: "<<getIdDeporte()<<endl;
+        cout<<"idEquipo: "<<getIdEquipo()<<endl;
+        inscripcion.Mostrar();
+        cout<<"Estado: "<<getEstado()<<endl<<endl;
+   }
+   void Cargar(){
 
+        cout<<"DNI: ";
+        cin>>DNI;
+        cout<<"nombre: ";
+        cargarCadena(nombre,25);
+        cout<<"apellido: ";
+        cargarCadena(nombre,25);
+        cout<<"email: ";
+        cargarCadena(email,30);
+        cout<<"telefono: ";
+        cin>>telefono;
+        cout<<"claustro: ";
+        cin>>claustro;
+        cout<<"idDeporte: ";
+        cin>>idDeporte;
+        cout<<"idEquipo: ";
+        cin>>idEquipo;
+
+        int dia,mes,anio;
+
+        cout<<"DIA";
+        cin>>dia;
+        inscripcion.setDia(dia);
+        cout<<"MES";
+        cin>>mes;
+        inscripcion.setMes(mes);
+        cout<<"ANIO";
+        cin>>anio;
+        inscripcion.setAnio(anio);
+
+        cout<<"Estado: ";
+        cin>>estado;
+        
+        cout<<endl;
    }
 } ;
 
@@ -77,8 +133,27 @@ public:
 
    void setEstado(bool e){estado=e;}
    void Mostrar(){
+    // cout<<"idDeporte: "<<getIdDeporte()<<endl;
+    // cout<<"Nombre: "<<getNombre()<<endl;
+    // cout<<"idCategoria: "<<getIdCtegoria()<<endl;
+    // cout<<"estado: "<<getEstado()<<endl<<endl;
 
-   }
+    cout<<"idDeporte: "<<getIdDeporte()<<endl;
+    cout<<"Nombre: "<<getNombre()<<endl;
+    cout<<"idCategoria: "<<getIdCtegoria()<<endl;
+    cout<<"estado: "<<getEstado()<<endl<<endl;
+    }
+
+    void Cargar(){
+    cout<<"idDeporte: ";
+    cin>>idDeporte;
+    cout<<"Nombre: ";
+    cargarCadena(nombre,30);
+    cout<<"idCategoria: ";
+    cin>>idCategoria;
+    cout<<"estado: ";
+    cin>>estado;
+    }
 
 };
 
@@ -95,7 +170,6 @@ public:
 
     void setEstado(bool e){estado=e;}
     void Mostrar(){
-
    }
 };
 
@@ -111,7 +185,10 @@ public:
         reg.setEstado(false);
         FILE *p;
         p=fopen(nombre, "rb");
-        if(p==NULL) return reg;
+        if(p==NULL){
+             cout<<"error1"<<endl;
+             return reg;
+        }
         fseek(p, sizeof reg*pos,0);
         fread(&reg, sizeof reg,1, p);
         fclose(p);
@@ -120,7 +197,10 @@ public:
     int contarRegistros(){
         FILE *p;
         p=fopen(nombre, "rb");
-        if(p==NULL) return -1;
+        if(p==NULL){
+            cout<<"error2"<<endl;
+            return -1;
+        } 
         fseek(p, 0,2);
         int tam=ftell(p);
         fclose(p);
@@ -129,7 +209,11 @@ public:
     bool grabarRegistro(Jugador reg){
         FILE *p;
         p=fopen(nombre, "ab");
-        if(p==NULL) return false;
+        if(p==NULL){
+            cout<<"error3"<<endl;
+        return false;
+        }
+        
         int escribio=fwrite(&reg, sizeof reg,1, p);
         fclose(p);
         return escribio;
@@ -149,7 +233,10 @@ public:
         reg.setEstado(false);
         FILE *p;
         p=fopen(nombre, "rb");
-        if(p==NULL) return reg;
+        if(p==NULL){
+            cout<<"error4"<<endl;
+            return reg;
+        } 
         fseek(p, sizeof reg*pos,0);
         fread(&reg, sizeof reg,1, p);
         fclose(p);
@@ -158,7 +245,10 @@ public:
     int contarRegistros(){
         FILE *p;
         p=fopen(nombre, "rb");
-        if(p==NULL) return -1;
+        if(p==NULL){
+            cout<<"error5"<<endl;
+            return -1;
+        }
         fseek(p, 0,2);
         int tam=ftell(p);
         fclose(p);
@@ -167,7 +257,10 @@ public:
     bool grabarRegistro(Deporte reg){
         FILE *p;
         p=fopen(nombre, "ab");
-        if(p==NULL) return false;
+        if(p==NULL){
+            cout<<"error6"<<endl;
+            return false;
+        }
         int escribio=fwrite(&reg, sizeof reg,1, p);
         fclose(p);
         return escribio;
@@ -186,7 +279,10 @@ public:
         reg.setEstado(false);
         FILE *p;
         p=fopen(nombre, "rb");
-        if(p==NULL) return reg;
+        if(p==NULL){
+            cout<<"error7"<<endl;
+            return reg;
+        }
         fseek(p, sizeof reg*pos,0);
         fread(&reg, sizeof reg,1, p);
         fclose(p);
@@ -195,7 +291,10 @@ public:
     int contarRegistros(){
         FILE *p;
         p=fopen(nombre, "rb");
-        if(p==NULL) return -1;
+        if(p==NULL){
+            cout<<"error7"<<endl;
+            return -1;
+        }
         fseek(p, 0,2);
         int tam=ftell(p);
         fclose(p);
@@ -204,7 +303,10 @@ public:
     bool grabarRegistro(Equipo reg){
         FILE *p;
         p=fopen(nombre, "ab");
-        if(p==NULL) return false;
+        if(p==NULL){
+            cout<<"error8"<<endl;
+            return false;
+        }
         int escribio=fwrite(&reg, sizeof reg,1, p);
         fclose(p);
         return escribio;
