@@ -3,7 +3,8 @@
 
 using namespace std;
 
-#include"parcial1l.h"
+#include "parcial1l.h"
+
 class ArchivoDeporte5
 {
 
@@ -20,13 +21,14 @@ public:
         FILE *p;
         p = fopen("ArchivoDeporte5.dat", "ab");
         if (p == NULL){
-            cout<<"ERROR"<<endl;
+            cout<<"ERROR AL CREAR EL P"<<endl;
             return false;
         }
         bool escribio = fwrite(this, sizeof(ArchivoDeporte5), 1, p);
         fclose(p);
         return escribio;
     }
+
     void setDNI(int dni) { _DNI = dni; }
     void setNombre(const char *nombre) { strcpy(_nombre, nombre); }
     void setApellido(const char *apellido) { strcpy(_apellido, apellido); }
@@ -53,7 +55,9 @@ public:
 };
 
 bool buscarJugadorCategoria5(int id);
+
 void MostrarArchivoCompleto();
+void VaciarArchivoDeporte5();
 
 void CargarArchivosDeporte(int tam);
 void CargarArchivosJugadores(int tam);
@@ -66,7 +70,7 @@ int main()
 
     //CargarArchivosJugadores(30);
     //CargarArchivosDeporte(30);
-    //MostrarArchivosJugadores();
+    MostrarArchivosJugadores();
     //MostrarArchivosDeporte();
 
 
@@ -86,7 +90,7 @@ int main()
              if (J.getClaustro() == 2)
              {
                 
-                 if (buscarJugadorCategoria5(J.getIdDeporte()))
+                 if (buscarJugadorCategoria5(J.getIdDeporte())==true)
                  {
                      AD5.setNombre(J.getNombre());
                      AD5.setApellido(J.getApellido());
@@ -123,17 +127,12 @@ bool buscarJugadorCategoria5(int id) //<------------
     {
         D = AD.leerRegistro(i);
 
-    if((D.getIdCtegoria()==5)&&(D.getEstado()==true)){
+    if((D.getIdCtegoria()==5) && (D.getEstado()==true) && (id == D.getIdDeporte())){
 
         //cout<<"SI id"<<id<<endl;
         //cout<<"SI getIdDeporte"<<D.getIdDeporte()<<endl;
-
-        if ((id == D.getIdDeporte()))
-        {
             //cout<<"SI 2"<<endl;
             return true;
-        }
-
     }
 
 
@@ -143,6 +142,8 @@ bool buscarJugadorCategoria5(int id) //<------------
 
 void MostrarArchivoCompleto()
 {
+    
+
     ArchivoDeporte5 ClassM;
     FILE *p;
 
@@ -157,6 +158,11 @@ void MostrarArchivoCompleto()
     {
         ClassM.Mostrar();
     }
+
+    VaciarArchivoDeporte5();
+
+    fclose(p);
+    
 }
 void MostrarArchivosDeporte(){
 
@@ -216,4 +222,16 @@ fwrite(&ClassM,sizeof (Deporte),1,p);
 }
 fclose(p);
 
+}
+
+void VaciarArchivoDeporte5(){
+    ArchivoDeporte5 ClassM;
+    FILE *p;
+
+    p = fopen("ArchivoDeporte5.dat", "wb");
+    if(p==NULL){
+    cout<<"ERROR de ARCHIVO"<<endl;
+    system("pause");
+    }
+    fclose(p);
 }
